@@ -4,6 +4,29 @@ Migrate your entire Spotify music library to Tidal using an AI coding assistant 
 
 **What gets migrated:** liked tracks, saved albums, followed artists, all playlists (tracks in Spotify order), and a special "Liked Songs" playlist on Tidal with your liked tracks in the exact order they appear on Spotify.
 
+---
+
+## Install
+
+```bash
+curl -sSf https://raw.githubusercontent.com/aalzubidy/spotify-to-tidal/master/install.sh | bash
+```
+
+Or clone and run locally:
+
+```bash
+git clone https://github.com/aalzubidy/spotify-to-tidal.git
+cd spotify-to-tidal
+./install.sh     # interactive — picks which tools to install
+./install.sh --all   # install to every detected AI tool
+```
+
+The script auto-detects which AI coding assistants you have installed and installs the skill into their skills directory. Supported tools:
+
+After installation, follow the setup steps below and tell your AI tool: *"Migrate my music from Spotify to Tidal"*
+
+---
+
 ## Prerequisites
 
 - Python 3.8+ with `pip install requests`
