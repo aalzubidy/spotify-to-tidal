@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Authorization — Spotify to Tidal Migration</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1DB954 0%, #191414 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+        .card {
+            background: rgba(25, 20, 20, 0.95);
+            border-radius: 16px;
+            padding: 48px 40px;
+            max-width: 480px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        .logo {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 24px;
+            background: #1DB954;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+        h1 { font-size: 24px; margin-bottom: 12px; }
+        p { color: #b3b3b3; margin-bottom: 16px; line-height: 1.6; font-size: 14px; }
+        .scopes {
+            text-align: left;
+            background: #111;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 24px 0;
+            font-size: 13px;
+            color: #999;
+        }
+        .scopes ul { list-style: none; }
+        .scopes li { padding: 4px 0; }
+        .scopes li::before { content: '✓ '; color: #1DB954; }
+        .btn {
+            display: inline-block;
+            background: #1DB954;
+            color: #fff;
+            padding: 14px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #1ed760; }
+        .app-id {
+            margin-top: 20px;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="logo">🎵</div>
+        <h1>Connect Your Spotify Account</h1>
+        <p>Click the button below to authorize this application to read your Spotify library. Your data will only be used to export your music for migration to Tidal.</p>
+        <div class="scopes">
+            <p><strong>This app will be able to:</strong></p>
+            <ul>
+                <li>Read your saved tracks</li>
+                <li>Read your saved albums</li>
+                <li>Read your playlists (including private)</li>
+                <li>Read your followed artists</li>
+                <li>View your top artists and tracks</li>
+            </ul>
+        </div>
+        <a href="{{AUTH_URL}}" class="btn">Authorize with Spotify</a>
+        <p class="app-id">Client ID: {{CLIENT_ID}}</p>
+    </div>
+</body>
+</html>
