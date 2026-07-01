@@ -1,6 +1,6 @@
 # Spotify to Tidal Migration — AI Skill for Claude Code, Cursor & Cline
 
-Migrate your entire Spotify music library to Tidal using an AI coding assistant (Claude Code, Cursor, VS Code/Cline, OpenCode, Pi). The AI handles everything — authenticating both services, matching tracks by **ISRC**, importing, keeping your playlists in order, and generating reports for failed imports.
+Migrate your entire Spotify music library to Tidal using an AI coding assistant (Claude Code, Claude Desktop, Cursor, VS Code/Cursor Cline, OpenCode, Codex CLI, Pi). The AI handles everything — authenticating both services, matching tracks by **ISRC**, importing, keeping your playlists in order, and generating reports for failed imports.
 
 **What gets migrated:** liked tracks, saved albums, followed artists, all playlists (tracks in Spotify order), and a special "Liked Songs" playlist on Tidal with your liked tracks in the exact order they appear on Spotify.
 
@@ -9,6 +9,8 @@ Migrate your entire Spotify music library to Tidal using an AI coding assistant 
 - **Runs locally & private** — unlike web services (TuneMyMusic, FreeYourMusic), nothing but your own machine and the official APIs see your library.
 - **ISRC-exact matching** — tracks are matched by exact ISRC against Tidal's catalog, not fuzzy title/artist guessing.
 - **Full library, in order** — playlists, liked songs (in original Spotify order), saved albums, and followed artists — not just playlists.
+- **Absolutely Free** - You don't pay anything, clone it, add it to your agent and it's free to use - no limit on songs.
+- **Personally Tested** - I personally tested it with my own library of 10k+ songs and playlists and getting about 93% coverage due to some songs not available on Tidal.
 
 ---
 
@@ -23,11 +25,24 @@ Or clone and run locally:
 ```bash
 git clone https://github.com/aalzubidy/spotify-to-tidal.git
 cd spotify-to-tidal
-./install.sh     # interactive — picks which tools to install
-./install.sh --all   # install to every detected AI tool
+./install.sh             # interactive — picks which tools to install
+./install.sh --all       # install to every detected AI tool
+./install.sh --claude    # Claude Code / Claude Desktop only
+./install.sh --opencode  # OpenCode only
+./install.sh --cursor    # Cursor (native skills) only
+./install.sh --codex     # Codex CLI only
+./install.sh --cline     # VS Code / Cursor Cline extension only
+./install.sh --pi        # Pi coding agent only
 ```
 
 The script auto-detects which AI coding assistants you have installed and installs the skill into their skills directory. Supported tools:
+
+- Claude Code / Claude Desktop (`~/.claude/skills`)
+- OpenCode (`~/.config/opencode/skills`)
+- Cursor (`~/.cursor/skills`)
+- Codex CLI (`~/.agents/skills`)
+- VS Code / Cursor Cline extension (`~/.cline/skills`)
+- Pi coding agent (`~/.pi/agent/skills`)
 
 After installation, follow the setup steps below and tell your AI tool: *"Migrate my music from Spotify to Tidal"*
 
@@ -37,7 +52,7 @@ After installation, follow the setup steps below and tell your AI tool: *"Migrat
 
 - Python 3.8+ with `pip install requests`
 - A Spotify account and a Tidal account
-- An AI coding assistant that supports skills/custom instructions (Claude Code, Cline, Cursor, etc.)
+- An AI coding assistant that supports skills/custom instructions (Claude Code, Claude Desktop, Cursor, VS Code/Cursor Cline, OpenCode, Codex CLI, Pi)
 
 ---
 

@@ -6,11 +6,12 @@
 # Usage:
 #   ./install.sh                  # Interactive (pick tools)
 #   ./install.sh --all            # Install to every detected tool
-#   ./install.sh --claude         # Claude Code only
+#   ./install.sh --claude         # Claude Code / Claude Desktop only
 #   ./install.sh --opencode       # OpenCode only
-#   ./install.sh --cursor         # Cursor (Cline extension) only
-#   ./install.sh --vscode         # VS Code (Cline extension) only
+#   ./install.sh --cursor         # Cursor (native skills) only
 #   ./install.sh --codex          # Codex CLI only
+#   ./install.sh --cline          # VS Code / Cursor Cline extension only
+#   ./install.sh --pi             # Pi coding agent only
 #   ./install.sh --help           # Show this help
 
 set -euo pipefail
@@ -35,31 +36,37 @@ err()   { echo -e "${RED}[error]${NC} $*" >&2; }
 detect_tools() {
   TOOLS=()
 
-  # Claude Code
-  if [ -d "$HOME/.claude/skills" ]; then
+  # Claude Code & Claude Desktop (share the same personal skills directory)
+  if [ -d "$HOME/.claude" ]; then
     TOOLS+=("claude:$HOME/.claude/skills")
   fi
 
   # OpenCode
-  if [ -d "$HOME/.config/opencode/skills" ]; then
+  if [ -d "$HOME/.config/opencode" ]; then
     TOOLS+=("opencode:$HOME/.config/opencode/skills")
   fi
 
-  # Cursor (Cline extension stores skills under globalStorage)
-  CURSOR_CLINE="$HOME/.config/Cursor/User/globalStorage/saoudrizwan.claude-dev"
-  if [ -d "$CURSOR_CLINE" ]; then
-    TOOLS+=("cursor:$CURSOR_CLINE")
+  # Cursor (native Agent Skills)
+  if [ -d "$HOME/.cursor" ]; then
+    TOOLS+=("cursor:$HOME/.cursor/skills")
   fi
 
-  # VS Code (Cline extension)
-  VSCODE_CLINE="$HOME/.config/Code/User/globalStorage/saoudrizwan.claude-dev"
-  if [ -d "$VSCODE_CLINE" ]; then
-    TOOLS+=("vscode:$VSCODE_CLINE")
+  # Codex CLI — gate on a real Codex install, not just the shared .agents
+  # folder (that folder is a cross-tool convention several other tools,
+  # including Pi, also write to, so its presence alone isn't proof of Codex)
+  if command -v codex >/dev/null 2>&1 || [ -d "$HOME/.codex" ]; then
+    TOOLS+=("codex:$HOME/.agents/skills")
   fi
 
-  # Codex CLI
+  # Cline (VS Code or Cursor extension) — single shared global path,
+  # regardless of which editor hosts the extension
+  if [ -d "$HOME/.cline" ]; then
+    TOOLS+=("cline:$HOME/.cline/skills")
+  fi
+
+  # Pi coding agent
   if [ -d "$HOME/.pi" ]; then
-    TOOLS+=("codex:$HOME/.pi/rules")
+    TOOLS+=("pi:$HOME/.pi/agent/skills")
   fi
 }
 
@@ -117,11 +124,12 @@ main() {
   if [ ${#TOOLS[@]} -eq 0 ]; then
     err "No supported AI tools detected!"
     echo "  Checked:"
-    echo "    ~/.claude/skills"
-    echo "    ~/.config/opencode/skills"
-    echo "    ~/.config/Cursor/User/globalStorage/saoudrizwan.claude-dev"
-    echo "    ~/.config/Code/User/globalStorage/saoudrizwan.claude-dev"
-    echo "    ~/.pi/rules"
+    echo "    ~/.claude          (Claude Code / Claude Desktop)"
+    echo "    ~/.config/opencode (OpenCode)"
+    echo "    ~/.cursor          (Cursor)"
+    echo "    codex in PATH, or ~/.codex (Codex CLI)"
+    echo "    ~/.cline           (VS Code / Cursor Cline extension)"
+    echo "    ~/.pi              (Pi coding agent)"
     echo ""
     echo "Install one of these tools first, then re-run this script."
     exit 1
@@ -143,8 +151,10 @@ main() {
       --claude)     install_targets+=("claude") ;;
       --opencode)   install_targets+=("opencode") ;;
       --cursor)     install_targets+=("cursor") ;;
-      --vscode)     install_targets+=("vscode") ;;
       --codex)      install_targets+=("codex") ;;
+      --cline)      install_targets+=("cline") ;;
+      --vscode)     install_targets+=("cline") ;; # alias for --cline
+      --pi)         install_targets+=("pi") ;;
       --help|-h)
         sed -n '2,/^$/p' "$0" | sed 's/^# //; s/^#$//'
         exit 0
