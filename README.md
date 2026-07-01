@@ -1,8 +1,14 @@
-# Spotify → Tidal Migration Skill
+# Spotify to Tidal Migration — AI Skill for Claude Code, Cursor & Cline
 
-Migrate your entire Spotify music library to Tidal using an AI coding assistant (Claude Code, Cline, Cursor, etc.). The AI handles everything — authenticating both services, matching tracks, importing, and generating reports. You just approve each step.
+Migrate your entire Spotify music library to Tidal using an AI coding assistant (Claude Code, Cursor, VS Code/Cline, OpenCode, Pi). The AI handles everything — authenticating both services, matching tracks by **ISRC**, importing, keeping your playlists in order, and generating reports for failed imports.
 
 **What gets migrated:** liked tracks, saved albums, followed artists, all playlists (tracks in Spotify order), and a special "Liked Songs" playlist on Tidal with your liked tracks in the exact order they appear on Spotify.
+
+## Why this vs. other Spotify → Tidal tools
+
+- **Runs locally & private** — unlike web services (TuneMyMusic, FreeYourMusic), nothing but your own machine and the official APIs see your library.
+- **ISRC-exact matching** — tracks are matched by exact ISRC against Tidal's catalog, not fuzzy title/artist guessing.
+- **Full library, in order** — playlists, liked songs (in original Spotify order), saved albums, and followed artists — not just playlists.
 
 ---
 
