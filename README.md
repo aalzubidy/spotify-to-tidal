@@ -4,6 +4,39 @@ Migrate your entire Spotify music library to Tidal using an AI coding assistant 
 
 **What gets migrated:** liked tracks, saved albums, followed artists, all playlists (tracks in Spotify order), and a special "Liked Songs" playlist on Tidal with your liked tracks in the exact order they appear on Spotify.
 
+---
+
+## Quick Start (no tech experience needed)
+
+You don't need to know how to code. You'll copy-paste a few commands and two sets of "keys" (like passwords apps use to talk to each other), and an AI assistant does the rest. This guide uses **Claude Desktop** [claude.ai/download](https://claude.ai/download):
+
+1. **Install this skill.** Open a terminal (Mac/Linux: search "Terminal" in Spotlight; Windows: search "Terminal") and paste:
+   ```bash
+   curl -sSf https://raw.githubusercontent.com/aalzubidy/spotify-to-tidal/master/install.sh | bash
+   ```
+   This copies the migration instructions into Claude Desktop automatically.
+
+2. **Get your Spotify keys.** Go to [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard), log in with your normal Spotify account, click **Create app**, give it a name, set the Redirect URI to `http://127.0.0.1:3030/callback`, select web api under which SDK to use. Once created, you'll see a **Client ID** and **Client Secret** — keep this page open, you'll need to copy them in step 4. Also add your own Spotify email under **User Management** on that same app page.
+
+3. **Get your Tidal keys.** Go to [developer.tidal.com/dashboard/](https://developer.tidal.com/dashboard/), log in with your Tidal account, click **Create app**, give it a name, create it, then click on settings and set the Redirect URI to `http://localhost:3030/callback`. On the scopes section, select all available permissions.Click save. Copy the **Client ID** and **Client Secret** it gives you.
+
+4. **Make a folder for your keys.** Create a new folder anywhere (e.g. on your Desktop) called `spotify-tidal-working-directory`. Inside it, create a plain text file named `spotify-to-tidal.env` with this content, filling in the four values you copied above:
+   ```
+   SPOTIFY_CLIENT_ID=paste_your_spotify_client_id
+   SPOTIFY_CLIENT_SECRET=paste_your_spotify_client_secret
+   TIDAL_CLIENT_ID=paste_your_tidal_client_id
+   TIDAL_CLIENT_SECRET=paste_your_tidal_client_secret
+   ```
+
+5. **Ask Claude to do the migration.** Open Claude Desktop and type:
+   > "Migrate my music from Spotify to Tidal. My working directory is `./spotify-tidal-working-directory` (full path: paste the actual folder path here)"
+
+   Claude will open your browser twice (once to log into Spotify, once for Tidal), then handle matching and importing everything for you — pausing to ask before it changes anything on your Tidal account. When it's done, it'll show you an HTML report you can open in your browser with the results.
+
+That's it. If you get stuck on any step, the sections below have more detail, or ask your AI assistant directly — it can usually walk you through it.
+
+---
+
 ## Why this vs. other Spotify → Tidal tools
 
 - **Runs locally & private** — unlike web services (TuneMyMusic, FreeYourMusic), nothing but your own machine and the official APIs see your library.
@@ -14,7 +47,11 @@ Migrate your entire Spotify music library to Tidal using an AI coding assistant 
 
 ---
 
-## Install
+## Full Setup & Reference
+
+The Quick Start above is enough for most people. This section has the full detail — other AI tools besides Claude Desktop, all install flags, and the exact prerequisites.
+
+### Install
 
 ```bash
 curl -sSf https://raw.githubusercontent.com/aalzubidy/spotify-to-tidal/master/install.sh | bash
@@ -46,17 +83,13 @@ The script auto-detects which AI coding assistants you have installed and instal
 
 After installation, follow the setup steps below and tell your AI tool: *"Migrate my music from Spotify to Tidal"*
 
----
-
-## Prerequisites
+### Prerequisites
 
 - Python 3.8+ with `pip install requests`
 - A Spotify account and a Tidal account
 - An AI coding assistant that supports skills/custom instructions (Claude Code, Claude Desktop, Cursor, VS Code/Cursor Cline, OpenCode, Codex CLI, Pi)
 
----
-
-## Setup
+### Setup
 
 ### Step 1 — Create a Spotify Developer App
 
