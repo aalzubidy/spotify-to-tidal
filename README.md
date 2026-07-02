@@ -8,17 +8,17 @@ Migrate your entire Spotify music library to Tidal using an AI coding assistant 
 
 ## Quick Start (no tech experience needed)
 
-You don't need to know how to code. You'll copy-paste a few commands and two sets of "keys" (like passwords apps use to talk to each other), and an AI assistant does the rest. This guide uses **Claude Desktop** since it's the easiest to install — download it free at [claude.ai/download](https://claude.ai/download) if you don't have it.
+You don't need to know how to code. You'll copy-paste a few commands and two sets of "keys" (like passwords apps use to talk to each other), and an AI assistant does the rest. This guide uses **Claude Desktop** [claude.ai/download](https://claude.ai/download):
 
-1. **Install this skill.** Open a terminal (Mac: search "Terminal" in Spotlight; Windows: search "Terminal" or use Git Bash) and paste:
+1. **Install this skill.** Open a terminal (Mac/Linux: search "Terminal" in Spotlight; Windows: search "Terminal") and paste:
    ```bash
    curl -sSf https://raw.githubusercontent.com/aalzubidy/spotify-to-tidal/master/install.sh | bash
    ```
    This copies the migration instructions into Claude Desktop automatically.
 
-2. **Get your Spotify keys.** Go to [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard), log in with your normal Spotify account, click **Create app**, and set the Redirect URI to `http://127.0.0.1:3030/callback`. Once created, you'll see a **Client ID** and **Client Secret** — keep this page open, you'll need to copy them in step 4. Also add your own Spotify email under **User Management** on that same app page.
+2. **Get your Spotify keys.** Go to [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard), log in with your normal Spotify account, click **Create app**, give it a name, set the Redirect URI to `http://127.0.0.1:3030/callback`, select web api under which SDK to use. Once created, you'll see a **Client ID** and **Client Secret** — keep this page open, you'll need to copy them in step 4. Also add your own Spotify email under **User Management** on that same app page.
 
-3. **Get your Tidal keys.** Go to [developer.tidal.com/dashboard/apps](https://developer.tidal.com/dashboard/apps), log in with your Tidal account, click **Create app**, set **Access tier** to `THIRD_PARTY`, and set the Redirect URI to `http://localhost:3030/callback`. Turn on these permissions: `user.read`, `collection.read`, `collection.write`, `playlists.read`, `playlists.write`, `search.read`. Copy the **Client ID** and **Client Secret** it gives you.
+3. **Get your Tidal keys.** Go to [developer.tidal.com/dashboard/](https://developer.tidal.com/dashboard/), log in with your Tidal account, click **Create app**, give it a name, create it, then click on settings and set the Redirect URI to `http://localhost:3030/callback`. On the scopes section, select all available permissions.Click save. Copy the **Client ID** and **Client Secret** it gives you.
 
 4. **Make a folder for your keys.** Create a new folder anywhere (e.g. on your Desktop) called `spotify-tidal-working-directory`. Inside it, create a plain text file named `spotify-to-tidal.env` with this content, filling in the four values you copied above:
    ```
